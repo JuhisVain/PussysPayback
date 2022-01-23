@@ -1,6 +1,9 @@
+#ifndef WORLDH
+#define WORLDH
+
 typedef enum
 {
-    HARDWALL, MOVEWALL, FLOOR
+  FOOD, HARDWALL, MOVEWALL, FLOOR
 } tile;
 
 typedef struct
@@ -24,3 +27,5 @@ typedef struct
 
 tile* at(unsigned char x, unsigned char y, world* world);
 world* create_world(unsigned char width, unsigned char height);
+
+#endif

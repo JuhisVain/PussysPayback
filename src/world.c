@@ -15,7 +15,7 @@ world* create_world(unsigned char width, unsigned char height)
     tile* world_map = malloc(width * height * sizeof(tile*));
     new_world->map = world_map;
 
-    new_world->cat = (point){.x=1, .y=1};
+    new_world->cat = (point){.x=width/2, .y=height/2};
     new_world->dog_list = NULL;
 
     for (int x = 0; x < width; ++x) {
