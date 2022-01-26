@@ -4,6 +4,7 @@
 #include "cat.h"
 
 void render_world(world* world);
+void flush_input_queue();
 
 int main()
 {
@@ -18,9 +19,9 @@ int main()
     terminal_refresh();
     //while (terminal_read() != TK_CLOSE);
     while (1) {
-	int tk_state = terminal_read();
-	switch (tk_state) {
-	case TK_CLOSE:
+        int tk_state = terminal_read();
+        switch (tk_state) {
+        case TK_CLOSE:
 	    goto game_end;
 	    break;
 	case TK_UP:
@@ -38,13 +39,22 @@ int main()
 	default:
 	    break;
 	}
-	
+        
 	render_world(world);
 	terminal_refresh();
+	flush_input_queue();
+	terminal_delay(100);
     }
 
   game_end:
     terminal_close();
+}
+
+void flush_input_queue()
+{
+    while (terminal_has_input()) {
+	terminal_read();
+    }
 }
 
 void render_world(world* world)
