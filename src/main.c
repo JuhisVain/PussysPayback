@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include "BearLibTerminal.h"
+#include "game.h"
 #include "world.h"
 #include "cat.h"
 
@@ -13,11 +14,12 @@ int main()
     
     terminal_set("0x1000: tileset.png, size=20x20, align=top-left, spacing=2x1");
 
-    world* world = create_world(23, 23);
-    render_world(world);
-    
+//    world* world = create_world(23, 23);
+    game* game = new_game();
+    construct_level(game);
+    render_world(game->world);
     terminal_refresh();
-    //while (terminal_read() != TK_CLOSE);
+    
     while (1) {
         int tk_state = terminal_read();
         switch (tk_state) {
@@ -25,22 +27,24 @@ int main()
 	    goto game_end;
 	    break;
 	case TK_UP:
-	    cat_move_up(world);
+	    cat_move_up(game->world);
 	    break;
 	case TK_DOWN:
-	    cat_move_down(world);
+	    cat_move_down(game->world);
 	    break;
 	case TK_LEFT:
-	    cat_move_left(world);
+	    cat_move_left(game->world);
 	    break;
 	case TK_RIGHT:
-	    cat_move_right(world);
+	    cat_move_right(game->world);
 	    break;
 	default:
 	    break;
 	}
+
+	
         
-	render_world(world);
+	render_world(game->world);
 	terminal_refresh();
 	flush_input_queue();
 	terminal_delay(100);
