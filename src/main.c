@@ -27,16 +27,16 @@ int main()
 	    goto game_end;
 	    break;
 	case TK_UP:
-	    cat_move_up(game->world);
+	    cat_move_up(game->world, game);
 	    break;
 	case TK_DOWN:
-	    cat_move_down(game->world);
+	    cat_move_down(game->world, game);
 	    break;
 	case TK_LEFT:
-	    cat_move_left(game->world);
+	    cat_move_left(game->world, game);
 	    break;
 	case TK_RIGHT:
-	    cat_move_right(game->world);
+	    cat_move_right(game->world, game);
 	    break;
 	default:
 	    break;
