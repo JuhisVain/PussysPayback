@@ -1,10 +1,13 @@
 #include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
 #include "BearLibTerminal.h"
 #include "game.h"
 #include "world.h"
 #include "cat.h"
 
 void render_world(world* world);
+void render_gui(game* game);
 void flush_input_queue();
 
 int main()
@@ -14,40 +17,44 @@ int main()
     
     terminal_set("0x1000: tileset.png, size=20x20, align=top-left, spacing=2x1");
 
-//    world* world = create_world(23, 23);
+    time_t init_time = time(NULL);
+    
     game* game = new_game();
     construct_level(game);
     render_world(game->world);
     terminal_refresh();
-    
     while (1) {
-        int tk_state = terminal_read();
-        switch (tk_state) {
-        case TK_CLOSE:
-	    goto game_end;
-	    break;
-	case TK_UP:
-	    cat_move_up(game->world, game);
-	    break;
-	case TK_DOWN:
-	    cat_move_down(game->world, game);
-	    break;
-	case TK_LEFT:
-	    cat_move_left(game->world, game);
-	    break;
-	case TK_RIGHT:
-	    cat_move_right(game->world, game);
-	    break;
-	default:
-	    break;
+        int tk_state;
+	if (terminal_has_input()) {
+	    tk_state = terminal_read();
+	    flush_input_queue();
+	    switch (tk_state) {
+	    case TK_CLOSE:
+		goto game_end;
+		break;
+	    case TK_UP:
+		cat_move_up(game->world, game);
+		break;
+	    case TK_DOWN:
+		cat_move_down(game->world, game);
+		break;
+	    case TK_LEFT:
+		cat_move_left(game->world, game);
+		break;
+	    case TK_RIGHT:
+		cat_move_right(game->world, game);
+		break;
+	    default:
+		break;
+	    }
+	render_world(game->world);    
 	}
-
 	
-        
-	render_world(game->world);
+	render_gui(game);
 	terminal_refresh();
-	flush_input_queue();
-	terminal_delay(100);
+	
+	//terminal_delay(10); // Appears to be dependant on cpu load
+	game->time = time(NULL) - init_time;
     }
 
   game_end:
@@ -61,18 +68,16 @@ void flush_input_queue()
     }
 }
 
+void render_gui(game* game)
+{
+    terminal_printf(1, 0, "%d", game->time);
+}
+
 void render_world(world* world)
 {
     for (int x = 0; x < world->width; ++x) {
 	for (int y = 0; y < world->height; ++y) {
-	    //printf("x:%d y:%d type:%d\n", x, y, *at(x,y,world));
 	    switch (*at(x,y,world)) {
-	    case FOOD:
-	        terminal_put(2*x,2+y,0x1002);
-	        break;
-	    case HARDWALL:
-	        terminal_put(2*x,2+y,0x1003);
-		break;
 	    case MOVEWALL:
 		terminal_composition(TK_ON);
 		terminal_put(2*x,2+y,0x1005);
@@ -80,6 +85,12 @@ void render_world(world* world)
 		break;
 	    case FLOOR:
 		terminal_put(2*x,2+y,0x1005);
+		break;
+	    case FOOD:
+	        terminal_put(2*x,2+y,0x1002);
+	        break;
+	    case HARDWALL:
+	        terminal_put(2*x,2+y,0x1003);
 		break;
 	    }
 	}
