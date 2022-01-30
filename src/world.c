@@ -59,6 +59,8 @@ int kill_doggy(unsigned char x, unsigned char y, dog_cons** dog_list)
 {
     point crd = (*dog_list)->crd; // This should be called in response to dog trap
     if (crd.x == x && crd.y == y) {
+	printf("Freeing %p\n", *dog_list);
+	free(*dog_list); //?
 	*dog_list = (*dog_list)->rest;
 	return 1;
     } else if ((*dog_list)->rest) {

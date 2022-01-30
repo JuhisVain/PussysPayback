@@ -5,6 +5,7 @@
 #include "game.h"
 #include "world.h"
 #include "cat.h"
+#include "doggy.h"
 
 void render_world(world* world);
 void render_gui(game* game);
@@ -19,6 +20,7 @@ int main()
 
     game* game = new_game();
     construct_level(game);
+    make_doggy(3, 3, game->world);
     render_world(game->world);
     terminal_refresh();
     while (1) {
@@ -49,6 +51,7 @@ int main()
 	}
 	
 	render_gui(game);
+	render_world(game->world); // TODO: remove after selective refresh impl
 	terminal_refresh();
 
 	update_time(game);

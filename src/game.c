@@ -34,6 +34,7 @@ void update_time(game* game)
     time_t new_time = time(NULL) - game->init_time;
     if (new_time > game->time) {
 	game->time = new_time;
+	run_dogs(game->world);
 	if (game->time%30 == 0) {
 	    make_doggy(3, 3, game->world); // TODO
 	}

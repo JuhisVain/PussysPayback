@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "world.h"
+#include "doggy.h"
 
 typedef struct
 {

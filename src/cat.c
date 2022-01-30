@@ -20,11 +20,6 @@ void cat_move_right(world* world, game* game)
     move(1, 0, world, game);
 }
 
-int sign(int num)
-{
-    return (num<0)?-1:(num>0)?1:0;
-}
-
 int move(int x_delta, int y_delta, world* world, game* game)
 {
     y_delta = sign(y_delta);
