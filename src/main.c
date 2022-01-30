@@ -17,8 +17,6 @@ int main()
     
     terminal_set("0x1000: tileset.png, size=20x20, align=top-left, spacing=2x1");
 
-    time_t init_time = time(NULL);
-    
     game* game = new_game();
     construct_level(game);
     render_world(game->world);
@@ -47,14 +45,13 @@ int main()
 	    default:
 		break;
 	    }
-	render_world(game->world);    
+	render_world(game->world);
 	}
 	
 	render_gui(game);
 	terminal_refresh();
-	
-	//terminal_delay(10); // Appears to be dependant on cpu load
-	game->time = time(NULL) - init_time;
+
+	update_time(game);
     }
 
   game_end:

@@ -40,3 +40,30 @@ world* create_world(unsigned char width, unsigned char height)
     }
     return new_world;
 }
+
+int make_doggy(unsigned char x, unsigned char y, world* world)
+{
+    if (*at(x, y, world) == FLOOR) { // also check dogginness/cattiness/foodiness
+	dog_cons* new_doggy = malloc(sizeof(dog_cons));
+	new_doggy->rest = world->dog_list;
+	new_doggy->crd.x = x;
+	new_doggy->crd.y = y;
+	world->dog_list = new_doggy;
+	return 1;
+    } else {
+	return 0; //Fail
+    }
+}
+
+int kill_doggy(unsigned char x, unsigned char y, dog_cons** dog_list)
+{
+    point crd = (*dog_list)->crd; // This should be called in response to dog trap
+    if (crd.x == x && crd.y == y) {
+	*dog_list = (*dog_list)->rest;
+	return 1;
+    } else if ((*dog_list)->rest) {
+	return kill_doggy(x, y, &(*dog_list)->rest);
+    } else {
+	return 0;
+    }
+}

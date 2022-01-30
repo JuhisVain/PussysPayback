@@ -1,6 +1,8 @@
 #ifndef WORLDH
 #define WORLDH
 
+#include <stdio.h>
+
 typedef enum
 {
   FOOD, HARDWALL, MOVEWALL, FLOOR
@@ -27,5 +29,7 @@ typedef struct
 
 tile* at(unsigned char x, unsigned char y, world* world);
 world* create_world(unsigned char width, unsigned char height);
+int make_doggy(unsigned char x, unsigned char y, world* world);
+int kill_doggy(unsigned char x, unsigned char y, dog_cons** dog_list);
 
 #endif

@@ -6,6 +6,7 @@ game* new_game()
     new_game->score = 0;
     new_game->level = 1;
     new_game->time = 0;
+    new_game->init_time = time(NULL);
     new_game->world = create_world(23, 23);
     return new_game;
 }
@@ -25,5 +26,16 @@ void construct_level(game* game)
 	break;
     default:
 	break;
+    }
+}
+
+void update_time(game* game)
+{
+    time_t new_time = time(NULL) - game->init_time;
+    if (new_time > game->time) {
+	game->time = new_time;
+	if (game->time%30 == 0) {
+	    make_doggy(3, 3, game->world); // TODO
+	}
     }
 }
