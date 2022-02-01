@@ -6,6 +6,16 @@ tile* at(unsigned char x, unsigned char y, world* world)
     return &world->map[x + (y * world->width)];
 }
 
+dog_cons* is_doggy(int x, int y, world* world)
+{
+    for (dog_cons* doggy = world->dog_list; doggy; doggy = doggy->rest) {
+	if (doggy->crd.x==x&&doggy->crd.y==y) {
+	    return doggy;
+	}
+    }
+    return NULL;
+}
+
 world* create_world(unsigned char width, unsigned char height)
 {
     world* new_world = malloc(sizeof(world));
