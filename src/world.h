@@ -8,6 +8,11 @@ typedef enum
   FOOD, HARDWALL, MOVEWALL, FLOOR
 } tile;
 
+typedef enum // abstract location type
+{
+  CFOOD, CHARDWALL, CMOVEWALL, CFLOOR, CCAT, CDOGGY
+} crd_type;
+
 typedef struct
 {
     unsigned char x, y;
@@ -28,6 +33,7 @@ typedef struct
 } world;
 
 tile* at(unsigned char x, unsigned char y, world* world);
+crd_type tile_type(int x, int y, world* world);
 dog_cons* is_doggy(int x, int y, world* world);
 world* create_world(unsigned char width, unsigned char height);
 int make_doggy(unsigned char x, unsigned char y, world* world);

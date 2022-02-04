@@ -6,6 +6,22 @@ tile* at(unsigned char x, unsigned char y, world* world)
     return &world->map[x + (y * world->width)];
 }
 
+crd_type tile_type(int x, int y, world* world)
+{
+    if (world->cat.x==x && world->cat.y == y) return CCAT;
+    for (dog_cons* doggy = world->dog_list; doggy; doggy = doggy->rest) {
+	if (doggy->crd.x==x&&doggy->crd.y==y) {
+	    return CDOGGY;
+	}
+    }
+    switch (*at(x,y,world)) {
+    case MOVEWALL: return CMOVEWALL;
+    case FLOOR: return CFLOOR;
+    case HARDWALL: return CHARDWALL;
+    case FOOD: return CFOOD;
+    }
+}
+
 dog_cons* is_doggy(int x, int y, world* world)
 {
     for (dog_cons* doggy = world->dog_list; doggy; doggy = doggy->rest) {
