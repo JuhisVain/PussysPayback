@@ -87,7 +87,5 @@ int doggy_logic(dog_cons* doggy, world* world)
 
 int force_doggy_move(dog_cons* doggy, world* world)
 {
-    int x = doggy->crd.x;
-    int y = doggy->crd.y;
-    // call doggy_logic here
+    return doggy_logic(doggy, world);
 }
