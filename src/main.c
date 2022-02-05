@@ -87,6 +87,8 @@ void render_world(world* world)
 		terminal_put(2*x,2+y,0x1005);
 		break;
 	    case FOOD:
+		terminal_composition(TK_ON);
+		terminal_put(2*x,2+y,0x1005);
 	        terminal_put(2*x,2+y,0x1002);
 	        break;
 	    case HARDWALL:

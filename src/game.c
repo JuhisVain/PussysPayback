@@ -34,7 +34,15 @@ void update_time(game* game)
     time_t new_time = time(NULL) - game->init_time;
     if (new_time > game->time) {
 	game->time = new_time;
-	run_dogs(game->world);
+	if (!run_dogs(game->world)) { // all dogs trapped?
+	    for (dog_cons* doggy = game->world->dog_list; doggy;) {
+		*at(doggy->crd.x, doggy->crd.y, game->world) = FOOD;
+		dog_cons* next_doggy = doggy->rest;
+		free(doggy);
+		doggy = next_doggy;
+	    }
+	    game->world->dog_list = NULL;
+	}
 	if (game->time%30 == 0) {
 	    make_doggy(3, 3, game->world); // TODO
 	}

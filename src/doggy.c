@@ -2,11 +2,16 @@
 
 int doggy_logic(dog_cons* doggy, world* world);
 
-void run_dogs(world* world)
+int run_dogs(world* world)
 {
+    if (!world->dog_list) return 1;
+    
+    int dogs_awake = 0;
     for (dog_cons* doggy = world->dog_list; doggy; doggy = doggy->rest) {
-	doggy_logic(doggy, world);
+	if (doggy_logic(doggy, world))
+	    dogs_awake = 1;
     }
+    return dogs_awake;
 }
 
 int doggy_walkable(int x, int y, world* world)
