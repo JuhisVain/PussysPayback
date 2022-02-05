@@ -5,12 +5,13 @@
 
 typedef enum
 {
-  FOOD, HARDWALL, MOVEWALL, FLOOR
+    FOOD, HARDWALL, MOVEWALL, FLOOR
 } tile;
 
-typedef enum // abstract location type
+// abstract location type:
+typedef enum
 {
-  CFOOD, CHARDWALL, CMOVEWALL, CFLOOR, CCAT, CDOGGY
+    CFOOD, CHARDWALL, CMOVEWALL, CFLOOR, CCAT, CDOGGY
 } crd_type;
 
 typedef struct
