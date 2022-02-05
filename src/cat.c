@@ -59,22 +59,31 @@ int move(int x_delta, int y_delta, world* world, game* game)
 
 int push(int origin_x, int origin_y, int x_delta, int y_delta, world* world)
 {
-    dog_cons* dog_here = is_doggy(origin_x+x_delta, origin_y+y_delta, world);
-    if (dog_here) {
-	
-    }
-    switch(*at(origin_x + x_delta, origin_y + y_delta, world)) {
-    case MOVEWALL:
+    switch(tile_type(origin_x + x_delta, origin_y + y_delta, world)) {
+    case CMOVEWALL:
 	if (push(origin_x + x_delta, origin_y + y_delta, x_delta, y_delta, world)) {
 	    goto push_success;
 	} else {
 	    goto push_fail;
 	}
-    case HARDWALL:
+    case CHARDWALL:
 	goto push_fail;
-    default:
+    case CFLOOR:
 	*at(origin_x + x_delta, origin_y + y_delta, world) = MOVEWALL;
 	goto push_success;
+    case CDOGGY:
+	if (force_doggy_move(is_doggy(origin_x+x_delta, origin_y+y_delta, world), world)) {
+	    *at(origin_x + x_delta, origin_y + y_delta, world) = MOVEWALL;
+	    goto push_success;
+	} else {
+	    goto push_fail;
+	}
+    case CFOOD:
+	*at(origin_x + x_delta, origin_y + y_delta, world) = MOVEWALL;
+	goto push_success;
+    case CCAT:
+	printf("Cats pushing cats ERROR!\n");
+	goto push_fail;
     }
 
   push_success:

@@ -20,6 +20,8 @@ crd_type tile_type(int x, int y, world* world)
     case HARDWALL: return CHARDWALL;
     case FOOD: return CFOOD;
     }
+    printf("Unknown tile type\n");
+    return CFLOOR;
 }
 
 dog_cons* is_doggy(int x, int y, world* world)
