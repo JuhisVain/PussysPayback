@@ -38,6 +38,7 @@ int move(int x_delta, int y_delta, world* world, game* game)
 	cat->x += x_delta;
 	cat->y += y_delta;
 	game->score += 1; // maybe set global
+	*at(cat->x, cat->y, world)=FLOOR;
 	goto move_success;
 	break;
     case MOVEWALL:
