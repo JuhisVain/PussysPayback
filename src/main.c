@@ -23,8 +23,8 @@ int main()
     make_doggy(3, 3, game->world);
     render_world(game->world);
     terminal_refresh();
+    int tk_state;
     while (1) {
-        int tk_state;
 	if (terminal_has_input()) {
 	    tk_state = terminal_read();
 	    flush_input_queue();
