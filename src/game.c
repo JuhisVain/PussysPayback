@@ -44,7 +44,9 @@ void update_time(game* game)
 	    game->world->dog_list = NULL;
 	}
 	if (game->time%30 == 0) {
-	    make_doggy(3, 3, game->world); // TODO
+	    int x, y;
+	    for (; x = 1+rand()%20, y = 1+rand()%20, *at(x,y,game->world)!=FLOOR;);
+	    make_doggy(x, y, game->world);
 	}
     }
 }
