@@ -77,6 +77,7 @@ int make_doggy(unsigned char x, unsigned char y, world* world)
 	new_doggy->crd.x = x;
 	new_doggy->crd.y = y;
 	world->dog_list = new_doggy;
+	push_render_event(x,y,0,0);
 	return 1;
     } else {
 	return 0; //Fail

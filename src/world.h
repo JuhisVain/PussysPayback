@@ -2,6 +2,7 @@
 #define WORLDH
 
 #include <stdio.h>
+#include "render_queue.h"
 
 typedef enum
 {

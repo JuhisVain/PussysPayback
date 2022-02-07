@@ -6,7 +6,9 @@
 #include "world.h"
 #include "cat.h"
 #include "doggy.h"
+#include "render_queue.h"
 
+void render_event_queue(world* world);
 void render_world(world* world);
 void render_gui(game* game);
 void flush_input_queue();
@@ -20,7 +22,7 @@ int main()
 
     game* game = new_game();
     construct_level(game);
-    make_doggy(3, 3, game->world);
+    //make_doggy(3, 3, game->world);
     render_world(game->world);
     terminal_refresh();
     int tk_state;
@@ -47,12 +49,15 @@ int main()
 	    default:
 		break;
 	    }
-	render_world(game->world);
+	    //render_world(game->world);
 	}
 	
 	render_gui(game);
-	render_world(game->world); // TODO: remove after selective refresh impl
-	terminal_refresh();
+	//render_world(game->world); // TODO: remove after selective refresh impl
+	if (render_queue) {
+	    render_event_queue(game->world);
+	    terminal_refresh();
+	}
 
 	update_time(game);
     }
@@ -71,6 +76,60 @@ void flush_input_queue()
 void render_gui(game* game)
 {
     terminal_printf(1, 0, "%d", game->time);
+}
+
+void render_event_queue(world* world) // TODO REDO
+{
+    if (!render_queue) return;
+    
+    int ox = render_queue->origin_x;
+    int oy = render_queue->origin_y;
+    int xd = render_queue->delta_x;
+    int yd = render_queue->delta_y;
+    pop_render_event();
+    int xinc = sign(xd);
+    int yinc = sign(yd);
+    int x = ox;
+    int y = oy;
+    printf("X delta: %d  Y delta: %d  origin %d,%d     ", xd, yd,ox ,oy);
+    do {
+	printf("Rendering %d %d\n", x,y);
+	switch(tile_type(x, y, world)) {
+	case CMOVEWALL:
+	    terminal_composition(TK_ON);
+	    terminal_put(2*x,2+y,0x1005);
+	    terminal_put(2*x,2+y,0x1004);
+	    break;
+	case CFLOOR:
+	    terminal_put(2*x,2+y,0x1005);
+	    break;
+	case CHARDWALL:
+	    terminal_put(2*x,2+y,0x1003);
+	    break;
+	case CDOGGY:
+	    terminal_composition(TK_ON);
+	    terminal_put(2*x,2+y,0x1005);
+	    terminal_put(x * 2, y + 2, 0x1001);
+	    break;
+	case CFOOD:
+	    terminal_composition(TK_ON);
+	    terminal_put(2*x,2+y,0x1005);
+	    terminal_put(2*x,2+y,0x1002);
+	    break;
+	case CCAT:
+	    terminal_composition(TK_ON);
+	    terminal_put(2*x,2+y,0x1005);
+	    terminal_put(x * 2, y + 2, 0x1000);
+	    break;
+	}
+	x += xinc;
+	y += yinc;
+	terminal_composition(TK_OFF);
+	printf(" !(%d == %d + %d && %d == %d + %d)\n",x ,xd,ox,y,yd,oy);
+	if (x < 0) break;
+    } while (!(x == xd+ox+xinc && y == yd+oy+yinc));
+    
+    render_event_queue(world);
 }
 
 void render_world(world* world)

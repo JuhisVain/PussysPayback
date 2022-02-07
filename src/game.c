@@ -37,6 +37,7 @@ void update_time(game* game)
 	if (!run_dogs(game->world)) { // all dogs trapped?
 	    for (dog_cons* doggy = game->world->dog_list; doggy;) {
 		*at(doggy->crd.x, doggy->crd.y, game->world) = FOOD;
+		push_render_event(doggy->crd.x, doggy->crd.y, 0, 0);
 		dog_cons* next_doggy = doggy->rest;
 		free(doggy);
 		doggy = next_doggy;

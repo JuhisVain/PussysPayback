@@ -5,6 +5,7 @@
 #include <time.h>
 #include "world.h"
 #include "doggy.h"
+#include "render_queue.h"
 
 typedef struct
 {

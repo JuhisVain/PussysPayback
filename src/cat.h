@@ -4,6 +4,7 @@
 #include "world.h"
 #include "game.h"
 #include "util.h"
+#include "render_queue.h"
 
 void cat_move_up(world* world, game* game);
 void cat_move_down(world* world, game* game);

@@ -76,6 +76,7 @@ int doggy_logic(dog_cons* doggy, world* world)
 	target_y = dog_y + delta_y;
     
 	if (doggy_walkable(target_x, target_y, world)) {
+	    push_render_event(dog_x, dog_y, delta_x, delta_y);
 	    doggy->crd.x = target_x;
 	    doggy->crd.y = target_y;
 	    crd_type tt = tile_type(target_x,target_y,world);
