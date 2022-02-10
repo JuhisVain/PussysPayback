@@ -7,5 +7,5 @@ int sign(int num)
 
 double distance(int ox, int oy, int tx, int ty)
 {
-    return sqrt(((tx-ox)^2) + ((ty-oy)^2));
+    return sqrt(pow(tx-ox, 2) + pow(ty-oy, 2));
 }
