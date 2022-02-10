@@ -29,6 +29,18 @@ void construct_level(game* game)
     }
 }
 
+void generate_doggy(world* world)
+{
+    int cx = world->cat.x;
+    int cy = world->cat.y;
+
+    int x,y;
+    for (; x = 1+rand()%20, y = 1+rand()%20,
+	     !((*at(x,y,world)==FLOOR) && (distance(x,y,cx,cy)>= 8.0)););
+    printf("Making doggy at %d %d, distance to %d %d cat: %f\n", x, y, cx,cy, distance(x,y,cx,cy));
+    make_doggy(x, y, world);
+}
+
 void update_time(game* game)
 {
     time_t new_time = time(NULL) - game->init_time;
@@ -43,11 +55,10 @@ void update_time(game* game)
 		doggy = next_doggy;
 	    }
 	    game->world->dog_list = NULL;
+	    generate_doggy(game->world);
 	}
-	if (game->time%30 == 0) {
-	    int x, y;
-	    for (; x = 1+rand()%20, y = 1+rand()%20, *at(x,y,game->world)!=FLOOR;);
-	    make_doggy(x, y, game->world);
+	if (game->time%15 == 0) {
+	    generate_doggy(game->world);
 	}
     }
 }
