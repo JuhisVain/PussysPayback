@@ -49,11 +49,9 @@ int main()
 	    default:
 		break;
 	    }
-	    //render_world(game->world);
 	}
 	
 	render_gui(game);
-	//render_world(game->world); // TODO: remove after selective refresh impl
 	if (render_queue) {
 	    render_event_queue(game->world);
 	    terminal_refresh();
