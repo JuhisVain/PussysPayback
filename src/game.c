@@ -37,7 +37,6 @@ void generate_doggy(world* world)
     int x,y;
     for (; x = 1+rand()%20, y = 1+rand()%20,
 	     !((*at(x,y,world)==FLOOR) && (distance(x,y,cx,cy)>= 8.0)););
-    printf("Making doggy at %d %d, distance to %d %d cat: %f\n", x, y, cx,cy, distance(x,y,cx,cy));
     make_doggy(x, y, world);
 }
 
