@@ -12,6 +12,9 @@ typedef struct
 {
     int score;
     int level;
+    unsigned int doggy_interval; // time between doggy spawnings when untrapped
+    unsigned int doggy_wait; // time before spawn after trap
+    unsigned int next_doggy; // scheduled next spawn
     unsigned int init_time;
     unsigned int time;
     world* world;

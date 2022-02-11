@@ -5,8 +5,11 @@ game* new_game()
     game* new_game = malloc(sizeof(game));
     new_game->score = 0;
     new_game->level = 1;
+    new_game->doggy_interval = 15;
+    new_game->doggy_wait = 5;
     new_game->time = 0;
     new_game->init_time = time(NULL);
+    new_game->next_doggy = new_game->time + new_game->doggy_interval;
     new_game->world = create_world(23, 23);
     return new_game;
 }
@@ -54,10 +57,11 @@ void update_time(game* game)
 		doggy = next_doggy;
 	    }
 	    game->world->dog_list = NULL;
-	    generate_doggy(game->world);
+	    game->next_doggy = game->time + game->doggy_wait;
 	}
-	if (game->time%15 == 0) {
+	if (game->time == game->next_doggy) {
 	    generate_doggy(game->world);
+	    game->next_doggy = game->time + game->doggy_interval;
 	}
     }
 }
