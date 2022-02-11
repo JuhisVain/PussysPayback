@@ -20,6 +20,8 @@ int main()
     
     terminal_set("0x1000: tileset.png, size=20x20, align=top-left, spacing=2x1");
 
+    srand(time(NULL));
+
     game* game = new_game();
     construct_level(game);
     make_doggy(3, 3, game->world);
