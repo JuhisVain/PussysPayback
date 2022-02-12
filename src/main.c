@@ -5,7 +5,6 @@
 #include "game.h"
 #include "world.h"
 #include "cat.h"
-#include "doggy.h"
 #include "render_queue.h"
 
 void render_event_queue(world* world);

@@ -12,6 +12,6 @@ void cat_move_left(world* world, game* game);
 void cat_move_right(world* world, game* game);
 
 int move(int x_delta, int y_delta, world* world, game* game);
-int push(int origin_x, int origin_y, int x_delta, int y_delta, world* world);
+int push(int origin_x, int origin_y, int x_delta, int y_delta, game* game);
 
 #endif
