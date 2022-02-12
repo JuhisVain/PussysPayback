@@ -75,7 +75,8 @@ void flush_input_queue()
 
 void render_gui(game* game)
 {
-    terminal_printf(1, 0, "%d", game->time);
+    terminal_printf(1, 0, "%4u", game->time);
+    terminal_printf(5, 0, "/%-4u", game->next_doggy);
 }
 
 void render_event_queue(world* world) // TODO REDO
