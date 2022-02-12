@@ -79,7 +79,7 @@ void render_gui(game* game)
     terminal_printf(5, 0, "/%-4u", game->next_doggy);
 }
 
-void render_event_queue(world* world) // TODO REDO
+void render_event_queue(world* world)
 {
     if (!render_queue) return;
     
@@ -92,9 +92,7 @@ void render_event_queue(world* world) // TODO REDO
     int yinc = sign(yd);
     int x = ox;
     int y = oy;
-    //printf("X delta: %d  Y delta: %d  origin %d,%d     ", xd, yd,ox ,oy);
     do {
-      //printf("Rendering %d %d\n", x,y);
 	switch(tile_type(x, y, world)) {
 	case CMOVEWALL:
 	    terminal_composition(TK_ON);
@@ -126,8 +124,6 @@ void render_event_queue(world* world) // TODO REDO
 	x += xinc;
 	y += yinc;
 	terminal_composition(TK_OFF);
-	//printf(" !(%d == %d + %d && %d == %d + %d)\n",x ,xd,ox,y,yd,oy);
-	//if (x < 0) break;
     } while (!(x == xd+ox+xinc && y == yd+oy+yinc));
     
     render_event_queue(world);
