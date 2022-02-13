@@ -67,6 +67,13 @@ int main()
     terminal_close();
 }
 
+void end_game()
+{
+    printf("GAME OVER\n");
+    terminal_close();
+    exit(0);
+}
+
 void flush_input_queue()
 {
     while (terminal_has_input()) {

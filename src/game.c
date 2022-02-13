@@ -69,6 +69,7 @@ int update_time(game* game)
     }
 }
 
+void end_game(); // cool reference to main.c
 void kill_cat(game* game)
 {
     if (--game->lives >= 0) {
@@ -94,7 +95,7 @@ void kill_cat(game* game)
 	game->world->cat.x = x;
 	game->world->cat.y = y;
     } else {
-	printf("Game over\n");
+	end_game();
     }
 }
 
