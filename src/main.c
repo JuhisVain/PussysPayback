@@ -76,7 +76,8 @@ void render_gui(game* game)
 {
     terminal_printf(1, 0, "%4u", game->time);
     terminal_printf(5, 0, "/%-4u", game->next_doggy);
-    terminal_printf(1, 1, "SCORE: %d", game->score);
+    terminal_printf(1, 1, "SCORE: %-5d", game->score);
+    terminal_printf(14, 1, "LIVES: %-d", game->lives);
 }
 
 void render_event_queue(world* world)
