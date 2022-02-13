@@ -52,13 +52,15 @@ int main()
 	    }
 	}
 	
-	render_gui(game);
 	if (render_queue) {
 	    render_event_queue(game->world);
 	    terminal_refresh();
 	}
 
-	update_time(game);
+	if (update_time(game)) {
+	    render_gui(game);
+	    terminal_refresh();
+	}
     }
 
   game_end:

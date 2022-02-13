@@ -22,7 +22,7 @@ typedef struct
 
 game* new_game();
 void construct_level(game* game);
-void update_time(game* game);
+int update_time(game* game);
 void kill_cat(game* game);
 
 int run_dogs(game* game);
